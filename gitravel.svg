@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 60" width="220" height="60">
+  <defs>
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8ab4d4"/>
+      <stop offset="50%" stop-color="#9e90c8"/>
+      <stop offset="100%" stop-color="#c8b07a"/>
+    </linearGradient>
+
+    <style>
+      .branch {
+        fill: none;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-dasharray: 100;
+        stroke-dashoffset: 100;
+        animation: draw 7s ease-in-out infinite;
+      }
+
+      @font-face {
+        font-family: 'Open Sans';
+        src: url('data:font/woff2;base64,PASTE_BASE64_FONT_HERE') format('woff2');
+        font-weight: 700;
+        font-style: normal;
+      }
+
+      .left  { stroke: #8ab4d4; }
+      .right { stroke: #9e90c8; animation-delay: 0.2s; }
+
+      .node {
+        opacity: 0;
+        transform-origin: center;
+        animation: nodePop 7s ease-in-out infinite;
+      }
+
+      .square {
+        fill: none;
+        stroke: #c8b07a;
+        stroke-width: 2;
+        stroke-dasharray: 80;
+        stroke-dashoffset: 80;
+        opacity: 0;
+        animation: squareForm 7s ease-in-out infinite;
+      }
+
+      .corner {
+        fill: #7ac8b0;
+        opacity: 0;
+        transform-origin: 110px 30px;
+        animation: converge 7s ease-in-out infinite;
+      }
+
+      .text {
+        transform-origin: 110px 30px;
+        opacity: 0;
+        animation: textReveal 7s ease-in-out infinite;
+      }
+
+      /* Branch drawing */
+      @keyframes draw {
+        0%   { stroke-dashoffset: 100; }
+        35%  { stroke-dashoffset: 0; }
+        50%  { stroke-dashoffset: 0; }
+        60%  { stroke-dashoffset: 100; }
+        100% { stroke-dashoffset: 100; }
+      }
+
+      /* Commit nodes */
+      @keyframes nodePop {
+        0%,20% { opacity: 0; transform: scale(0); }
+        30%    { opacity: 1; transform: scale(1.2); }
+        40%    { transform: scale(1); }
+        55%    { opacity: 1; }
+        65%    { opacity: 0; transform: scale(0.3); }
+        100%   { opacity: 0; }
+      }
+
+      /* Square forms */
+      @keyframes squareForm {
+        45% { opacity: 0; stroke-dashoffset: 80; }
+        55% { opacity: 1; stroke-dashoffset: 0; }
+        65% { opacity: 1; }
+        75% { opacity: 0; }
+        100% { opacity: 0; }
+      }
+
+      /* Corners collapse to center */
+      @keyframes converge {
+        0%,55% { opacity: 0; transform: translate(0,0) scale(0); }
+
+        60% { opacity: 1; transform: translate(0,0) scale(1); }
+
+        /* move to center */
+        75% { transform: translate(calc(110px - var(--x)), calc(30px - var(--y))) scale(0.6); }
+
+        85% { transform: translate(calc(110px - var(--x)), calc(30px - var(--y))) scale(0); opacity: 0; }
+
+        100% { opacity: 0; }
+      }
+
+      /* Logo appears */
+      @keyframes textReveal {
+        0%,75% { opacity: 0; transform: scale(0.2); }
+        85%    { opacity: 1; transform: scale(1.1); }
+        92%    { transform: scale(0.95); }
+        100%   { opacity: 1; transform: scale(1); }
+      }
+    </style>
+  </defs>
+
+  <!-- BRANCHES -->
+  <path class="branch left"
+        d="M20 30 L60 30 L80 20 L100 30" />
+  <path class="branch right"
+        d="M200 30 L160 30 L140 40 L120 30" />
+
+  <!-- NODES -->
+  <circle class="node left" cx="20" cy="30" r="3"/>
+  <circle class="node left" cx="60" cy="30" r="3" style="animation-delay:0.2s"/>
+  <circle class="node left" cx="80" cy="20" r="3" style="animation-delay:0.35s"/>
+  <circle class="node left" cx="100" cy="30" r="3" style="animation-delay:0.5s"/>
+
+  <circle class="node right" cx="200" cy="30" r="3"/>
+  <circle class="node right" cx="160" cy="30" r="3" style="animation-delay:0.2s"/>
+  <circle class="node right" cx="140" cy="40" r="3" style="animation-delay:0.35s"/>
+  <circle class="node right" cx="120" cy="30" r="3" style="animation-delay:0.5s"/>
+
+  <!-- SQUARE (centered) -->
+  <rect class="square" x="90" y="10" width="40" height="40"/>
+
+  <!-- CORNERS -->
+  <circle class="corner" cx="90" cy="10" r="3" style="--x:90px; --y:10px"/>
+  <circle class="corner" cx="130" cy="10" r="3" style="--x:130px; --y:10px"/>
+  <circle class="corner" cx="130" cy="50" r="3" style="--x:130px; --y:50px"/>
+  <circle class="corner" cx="90" cy="50" r="3" style="--x:90px; --y:50px"/>
+
+  <!-- TEXT -->
+  <text class="text"
+        x="110" y="42"
+        text-anchor="middle"
+        font-family="system-ui, -apple-system, sans-serif"
+        font-size="28"
+        font-weight="700"
+        fill="url(#textGrad)">
+    Gitravel
+  </text>
+</svg>
